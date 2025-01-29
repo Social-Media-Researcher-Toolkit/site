@@ -3,14 +3,21 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: telegram 
-  title: Telegram
-- file: 4chan
-  title: 4chan
-- file: instagram
-  title: Instagram
-- file: reddit
-  title: Reddit
-- file: youtube
-  title: Youtube
+parts:
+  - caption: Reddit
+    chapters:
+    - file: reddit/intro
+    - file: reddit/section1
+    - file: reddit/section2
+  - caption: Telegram
+    chapters:
+      - file: telegram/intro
+  - caption: Instagram
+    chapters:
+      - file: instagram/intro
+  - caption: 4chan
+    chapters: 
+      - file: 4chan/intro
+  - caption: Youtube
+    chapters:
+      - file: youtube/intro
