@@ -3,17 +3,9 @@
 
 format: jb-book
 root: intro
-parts:
-  - caption: Social Media 
-    chapters:
-    - file: social_media/intro
+chapters:
     - file: social_media/reddit
     - file: social_media/telegram
     - file: social_media/instagram
     - file: social_media/4chan
     - file: social_media/youtube 
-  - caption: Data Analysis
-    chapters:
-    - file: data_analysis/intro
-    - file: data_analysis/pandas
-    - file: data_analysis/matplotlib
