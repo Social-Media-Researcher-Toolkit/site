@@ -3,9 +3,14 @@
 
 format: jb-book
 root: intro
-chapters:
+parts:
+  - caption: Social Media
+    chapters:
     - file: social_media/reddit
     - file: social_media/telegram
     - file: social_media/instagram
     - file: social_media/4chan
     - file: social_media/youtube 
+  - caption: Exporting Data
+    chapters:
+     - file: exporting/csv
