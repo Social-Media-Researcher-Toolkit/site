@@ -1,16 +1,16 @@
 window.addEventListener("DOMContentLoaded", () => {
-  const logoImg = document.querySelector(".navbar-brand-logo img");
-  if (!logoImg) return;
+  // Dynamically find the base URL of _static (e.g., ../../_static/)
+  const staticBase = document.querySelector("script[src*='_static/logo-switch.js']")
+    ?.getAttribute("src")
+    ?.split("/logo-switch.js")[0] || "_static";
 
-  const darkLogo = "_static/logo-light.png";
-  const lightLogo = "_static/logo-dark.png";
+  const darkLogo = `${staticBase}/logo-dark.png`;   // for light theme
+  const lightLogo = `${staticBase}/logo-light.png`;   // for dark theme
 
-  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  logoImg.src = isDark ? darkLogo : lightLogo;
+  const lightImg = document.querySelector("img.logo__image.only-light");
+  const darkImg = document.querySelector("img.logo__image.only-dark");
 
-  // Optional: react to changes in system theme
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-    logoImg.src = e.matches ? darkLogo : lightLogo;
-  });
+  if (lightImg) lightImg.src = lightLogo;
+  if (darkImg) darkImg.src = darkLogo;
 });
 

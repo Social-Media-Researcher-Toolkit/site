@@ -42,6 +42,6 @@ html:
   options:
     navbar_align: center
     show_prev_next: false
-  favicon: _static/logo-light.png
+  favicon: _static/favicon.png
   analytics:
     google-analytics-id: G-XXXXXX
