@@ -8,7 +8,7 @@
 title                       : Signals in the Noise # The title of the book. Will be placed in the left navbar.
 author                      : Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil  # The author of the book
 copyright                   : "2025"  # Copyright year to be placed in the footer
-logo                        : logo.png # A path to the book logo
+logo                        : _static/logo-dark.png # A path to the book logo
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -35,9 +35,13 @@ repository:
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
+  extra_js:
+    - _static/logo-switch.js
   use_issues_button: true
   use_repository_button: true
   options:
     navbar_align: center
     show_prev_next: false
-  favicon: python-logo-only.svg
+  favicon: _static/logo-light.png
+  analytics:
+    google-analytics-id: G-XXXXXX
