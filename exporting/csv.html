@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Exporting to CSV &#8212; Signals in the Noise</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exporting/csv';</script>
+    <script src="../_static/logo-switch.js?v=ee016214"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="YouTube" href="../social_media/youtube.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo-dark.png" class="logo__image only-light" alt="Signals in the Noise - Home"/>
+    <script>document.write(`<img src="../_static/logo-dark.png" class="logo__image only-dark" alt="Signals in the Noise - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Signals in the Noise: Python Tools for Social Media Data
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Social Media</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../social_media/reddit.html">Reddit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../social_media/telegram.html">Telegram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../social_media/4chan.html">4chan</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../social_media/youtube.html">YouTube</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exporting Data</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exporting to CSV</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Social-Media-Researcher-Toolkit/site" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Social-Media-Researcher-Toolkit/site/issues/new?title=Issue%20on%20page%20%2Fexporting/csv.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/exporting/csv.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exporting to CSV</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exporting-to-csv">
+<h1>Exporting to CSV<a class="headerlink" href="#exporting-to-csv" title="Link to this heading">#</a></h1>
+<p>After collecting data in your program, it’s often useful to save it in an external file for easier sharing and analysis. CSV (Comma-Separated Values) is a widely used format because it is simple, lightweight, and compatible with many applications, including spreadsheets and databases. You can read more about the format <a class="reference external" href="https://docs.fileformat.com/spreadsheet/csv/">here</a>.</p>
+<p>The following script demonstrates how to export data programmatically from an object into a CSV file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+
+<span class="n">example_user_object</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;JohnDoe123&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;first_name&quot;</span><span class="p">:</span> <span class="s2">&quot;John&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;last_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Doe&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;message_count&quot;</span><span class="p">:</span> <span class="mi">23</span>
+<span class="p">}</span>
+
+<span class="n">example_message_object</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;message&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sender&quot;</span><span class="p">:</span> <span class="n">example_user_object</span><span class="p">,</span>
+    <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;This is the message&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;media&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;media_download&quot;</span><span class="p">:</span> <span class="s2">&quot;https://link_to_media.com/media?q=abcdefg&quot;</span>
+<span class="p">}</span>
+
+<span class="n">example_object_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">example_user_object</span><span class="p">,</span>
+    <span class="n">example_message_object</span>
+<span class="p">]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;example_users_csv.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">users_file</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;example_messages_csv.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">messages_file</span><span class="p">:</span>
+
+    <span class="c1">#iterate through example list of objects</span>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">example_object_list</span><span class="p">:</span>
+
+        <span class="c1">#handle user objects</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;user&quot;</span><span class="p">:</span>
+            <span class="c1">#if the file is empty, write the first row of labels</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="s2">&quot;example_users_csv.csv&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">label_row</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">label_row</span> <span class="o">+=</span> <span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+                <span class="n">label_row</span> <span class="o">=</span> <span class="n">label_row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">users_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">label_row</span><span class="p">)</span>
+                
+
+            <span class="n">row</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">row</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">users_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="c1">#handle message objects</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;message&quot;</span><span class="p">:</span>
+            <span class="c1">#if the file is empty, write the first row of labels</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="s2">&quot;example_messages_csv.csv&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">label_row</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;sender&quot;</span><span class="p">:</span>
+                            <span class="n">label_row</span> <span class="o">+=</span> <span class="s2">&quot;sender_id&quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">label_row</span> <span class="o">+=</span> <span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+                    <span class="n">label_row</span> <span class="o">=</span> <span class="n">label_row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="n">messages_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">label_row</span><span class="p">)</span>
+                    
+
+            <span class="n">row</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                    <span class="n">row</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">row</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">messages_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="c1">#printing the contents of the files for demonstration purposes</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;messages file:&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;example_messages_csv.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">users file:&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;example_users_csv.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">file_to_rem</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;example_users_csv.csv&quot;</span><span class="p">)</span>
+<span class="n">file_to_rem</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+<span class="n">file_to_rem</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;example_messages_csv.csv&quot;</span><span class="p">)</span>
+<span class="n">file_to_rem</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>messages file:
+type,sender_id,content,media,media_download
+message,1,This is the message,True,https://link_to_media.com/media?q=abcdefg
+
+users file:
+type,username,id,first_name,last_name,message_count
+user,JohnDoe123,1,John,Doe,23
+</pre></div>
+</div>
+</div>
+</div>
+<p>The next script takes it a step further, getting the last 10 messages from the nytimes Telegram channel and writing its data to a csv file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">telethon</span><span class="w"> </span><span class="kn">import</span> <span class="n">TelegramClient</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="n">TELEGRAM_API_ID</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TELEGRAM_API_ID&quot;</span><span class="p">)</span>
+<span class="n">TELEGRAM_API_HASH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TELEGRAM_API_HASH&quot;</span><span class="p">)</span>
+<span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PHONE_NUMBER&quot;</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">with</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s2">&quot;example_session&quot;</span><span class="p">,</span> <span class="n">TELEGRAM_API_ID</span><span class="p">,</span> <span class="n">TELEGRAM_API_HASH</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="n">channel_name</span> <span class="o">=</span> <span class="s2">&quot;nytimes&quot;</span>
+    <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nytimes_posts.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">written_labels</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">iter_messages</span><span class="p">(</span><span class="n">channel_name</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">written_labels</span><span class="p">:</span>
+                <span class="n">label_row</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;_&quot;</span><span class="p">:</span>
+                        <span class="n">label_row</span> <span class="o">+=</span> <span class="s2">&quot;type,&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">label_row</span> <span class="o">+=</span> <span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+                <span class="n">label_row</span> <span class="o">=</span> <span class="n">label_row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">label_row</span><span class="p">)</span>
+                <span class="n">written_labels</span> <span class="o">=</span> <span class="kc">True</span>
+                
+    
+            <span class="n">row</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">message</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">str</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">bool</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">:</span>
+                        <span class="n">row</span> <span class="o">+=</span> <span class="n">value</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">row</span> <span class="o">+=</span> <span class="n">value</span><span class="p">[</span><span class="s2">&quot;_&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; Object&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">row</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">)</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;;&quot;</span><span class="p">)</span>
+                <span class="n">row</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+<span class="c1">#printing the contents of the file for demonstration purposes</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;nytimes_posts.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">file_to_rem</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;nytimes_posts.csv&quot;</span><span class="p">)</span>
+<span class="n">file_to_rem</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>type,id,peer_id,date,message,out,mentioned,media_unread,silent,post,from_scheduled,legacy,edit_hide,pinned,noforwards,invert_media,offline,video_processing_pending,from_id,from_boosts_applied,saved_peer_id,fwd_from,via_bot_id,via_business_bot_id,reply_to,media,reply_markup,entities,views,forwards,replies,edit_date,post_author,grouped_id,reactions,restriction_reason,ttl_period,quick_reply_shortcut_id,effect,factcheck
+Message;3376;PeerChannel Object;2025-04-03 18:55:26;Here are some of the stories we are covering from around the world:\n\nThe War on Nature in Ukraine\n\nThe human costs of Russia’s war in Ukraine are enormous. But Ukraine’s environment is also being devastated. The war may end; but damage from artillery shells; mines; drones and missiles will endure for decades; experts say.\n\nWhere Trump’s Tariffs Will Hit Hardest\n\nThese countries are some of the most vulnerable to Washington’s sweeping new tariffs. Their economies are deeply reliant on selling goods to the United States; and many of them were hit with especially steep taxes.\n\nIsrael Hits Syria With New Strikes and Ground Raid as Tensions Soar\n\nSyria accused Israel on Thursday of trying to destabilize the country after intense airstrikes on military bases and a deadly raid in southern Syria.\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 28; &#39;url&#39;: &#39;https://nyti.ms/4i3rrUC&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 28}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 325; &#39;length&#39;: 38; &#39;url&#39;: &#39;https://nyti.ms/42oVAIq&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 325; &#39;length&#39;: 38}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 581; &#39;length&#39;: 67; &#39;url&#39;: &#39;https://nyti.ms/4lfJ72d&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 581; &#39;length&#39;: 67}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 801; &#39;length&#39;: 8}];2929;2;None;2025-04-03 18:57:56;None;None;MessageReactions Object;[];None;None;None;None
+Message;3375;PeerChannel Object;2025-04-02 19:19:03;Here are some of the stories we are covering from around the world:\n\nMyanmar Military Calls for Temporary Truce After Earthquake\n\nMyanmar’s military on Wednesday declared a 21-day cease-fire to support relief and reconstruction efforts in the wake of a devastating earthquake in the country; a day after it fired on a Chinese Red Cross convoy trying to deliver food and medicine to desperate survivors.\n\nIsrael Takes New Territory in Gaza; Squeezing Hamas\n\nPrime Minister Benjamin Netanyahu announced that Israel had seized a ribbon of territory in the Gaza Strip hours after his government laid out plans to seize large parts of the enclave.\n\nAngola Rail Line Offers Clues to Trump’s Africa Policy\n\nThe $4 billion project was the Biden administration’s signature initiative in Africa. Early signs are that the Trump team supports it; too; for mineral access if nothing else.\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 0; &#39;length&#39;: 67}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 59; &#39;url&#39;: &#39;https://nyti.ms/4cbU6FA&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 59}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 404; &#39;length&#39;: 51; &#39;url&#39;: &#39;https://nyti.ms/42svNQv&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 404; &#39;length&#39;: 51}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 644; &#39;length&#39;: 54; &#39;url&#39;: &#39;https://nyti.ms/4lexsk4&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 644; &#39;length&#39;: 54}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 877; &#39;length&#39;: 8}];11914;9;None;2025-04-02 19:19:23;None;None;MessageReactions Object;[];None;None;None;None
+Message;3374;PeerChannel Object;2025-04-01 18:39:58;Here are some of the stories we are covering from around the world:\n\nA Prison Death Highlights an L.G.B.T.Q. Crackdown in Russia\n\nThe Russian government has unleashed a wave of repression against L.G.B.T.Q. people; with the police raiding gay night clubs and investigators targeting people they suspect of being gay.\n\nU.N. Accuses Israel of Killing 15 Rescue Workers in Gaza\n\nThe United Nations said Israeli forces killed the people as they were trying to aid injured civilians; then buried them in a mass grave. Israel said nine of the 15 dead were Palestinian militants.\n\nIceland Volcano Eruption Threatens Town\n\nA volcano in southwestern Iceland erupted on Tuesday; endangering the town of Grindavik and prompting the closure of the popular Blue Lagoon tourist destination.\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 0; &#39;length&#39;: 67}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 59; &#39;url&#39;: &#39;https://nyti.ms/4l9nctk&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 59}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 318; &#39;length&#39;: 56; &#39;url&#39;: &#39;https://nyti.ms/3DRJkb8&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 318; &#39;length&#39;: 56}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 574; &#39;length&#39;: 39; &#39;url&#39;: &#39;https://nyti.ms/4ljWZsn&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 574; &#39;length&#39;: 39}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 778; &#39;length&#39;: 8}];15012;25;None;2025-04-01 18:40:49;None;None;MessageReactions Object;[];None;None;None;None
+Message;3373;PeerChannel Object;2025-03-31 19:59:24;Here are some of the stories we are covering from around the world:\n\nA NATO Plane’s Busy Duty: Tracking (and Dodging) Russia in the Baltic Sea\n\nThe assignment was part of a new program aimed at suspected Russian sabotage. None has occurred since NATO began patrols. Never fully tranquil; the Baltic Sea; with a coastline heavily militarized by Northern European and Russian navies; has become an increasingly tense theater in the conflict between Moscow and the West.\n\nThey Found Love at a Construction Site; Then Were Trapped Beneath It\n\nThe Bangkok building razed by Friday’s quake employed men and women who had found love at work. Despite glimmers of hope; many were still beneath the rubble.\n\nZimbabwe’s Leader Faces Call for Removal From Within His Own Party\n\nNearly eight years after the coup that brought him to power; President Emmerson Mnangagwa is under threat from opponents within his governing ZANU-PF party; who have urged mass protests.\n\nRead more\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 0; &#39;length&#39;: 67}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 73; &#39;url&#39;: &#39;https://nyti.ms/4jblp5c&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 73}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 469; &#39;length&#39;: 68; &#39;url&#39;: &#39;https://nyti.ms/4c98Yoa&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 469; &#39;length&#39;: 68}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 698; &#39;length&#39;: 66; &#39;url&#39;: &#39;https://nyti.ms/4lbPkMy&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 698; &#39;length&#39;: 66}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 954; &#39;length&#39;: 9; &#39;url&#39;: &#39;https://nyti.ms/4jblp5c&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 954; &#39;length&#39;: 9}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 965; &#39;length&#39;: 8}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 965; &#39;length&#39;: 8}];16746;12;None;2025-03-31 19:59:35;None;None;MessageReactions Object;[];None;None;None;None
+Message;3372;PeerChannel Object;2025-03-28 19:23:00;Here are some of the stories we are covering from around the world:\n\nMajor Quake Batters Myanmar; High Toll Is Feared as Buildings Topple\n\nA powerful earthquake struck central Myanmar on Friday; gouging open roads; toppling century-old religious monuments and destroying multistory buildings as it shook a vast expanse of Southeast Asia and dealt another severe blow to a country that has been ripped apart by civil war.\n\nUkraine Stages New Push Into Russia; Officials and Experts Say\n\nIn recent days; the Ukrainian Army has staged a new cross-border push into the Belgorod region of Russia; according to Ukrainian officials; analysts of open-source intelligence and Russian military bloggers. The advance comes as cease-fire talks continue.\n\nVance Lands in Greenland; a Place That Doesn’t Want Him\n\nVice President JD Vance landed in Greenland on Friday afternoon as part of a contentious trip pushed by the Trump administration and angrily opposed by Greenlanders. \n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 68; &#39;url&#39;: &#39;https://nyti.ms/4l7BECf&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 68}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 422; &#39;length&#39;: 62; &#39;url&#39;: &#39;https://nyti.ms/4hR5wzO&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 422; &#39;length&#39;: 62}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 743; &#39;length&#39;: 55; &#39;url&#39;: &#39;https://nyti.ms/3XB5FAq&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 743; &#39;length&#39;: 55}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 968; &#39;length&#39;: 8}];24373;19;None;2025-03-28 19:23:49;None;None;MessageReactions Object;[];None;None;None;None
+Message;3371;PeerChannel Object;2025-03-27 19:47:07;Here are some of the stories we are covering from around the world:\n\nDrones; Mines and Snipers: Ukraine’s Front Line Is a World Away from Peace Talks\n\nHunted by drones; stalked by snipers and surrounded by minefields; soldiers fighting in Ukraine can’t risk even a small lapse in concentration; and any talk about a lasting cease-fire still feels like a dangerous fantasy.\n\nAs Musk Makes Some Headway in India; He Is Also Suing Its Government\n\nElon Musk’s pursuit of business expansion in India through Tesla and Starlink is coming at the same time that his X platform is waging a fight with the government over free speech.\n\nSouth Sudan’s Vice President Has Been Placed Under House Arrest; Party Says\n\nSouth Sudan’s vice president; Riek Machar; has been placed under house arrest; according to his party; escalating tensions that the United Nations has warned are pushing the world’s youngest country to the brink of civil war.\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 80; &#39;url&#39;: &#39;https://nyti.ms/3XvsUfa&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 80}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 374; &#39;length&#39;: 68; &#39;url&#39;: &#39;https://nyti.ms/4l6KX5e&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 374; &#39;length&#39;: 68}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 626; &#39;length&#39;: 75; &#39;url&#39;: &#39;https://nyti.ms/41L33Cm&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 626; &#39;length&#39;: 75}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 930; &#39;length&#39;: 8}];23540;17;None;2025-03-27 19:47:48;None;None;MessageReactions Object;[];None;None;None;None
+Message;3370;PeerChannel Object;2025-03-26 19:32:46;Here are some of the stories we are covering from around the world:\n\nGazans Protest Against Hamas and War for a Second Day\n\nPalestinians in Gaza protested against the war for a second straight day on Wednesday and chanted slogans against Hamas. The demonstrations; a rare show of dissent; appeared to have spread; reflecting frustration at the breakdown of a cease-fire with Israel.\n\nJair Bolsonaro Ordered to Face Trial in Brazil for Attempting a Coup\n\nJair Bolsonaro; Brazil’s former president; will face trial on charges that he oversaw a vast scheme to cling to power after losing the 2022 elections; the country’s Supreme Court decided on Wednesday.\n\nWorld’s Largest ‘Baby Exporter’ Admits to Adoption Fraud\n\nSouth Korea admitted for the first time that in its rush to send children to American and European homes decades ago; its adoption agencies committed widespread malpractices; including falsifying documents​; to make them more adoptable​.\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 53; &#39;url&#39;: &#39;https://nyti.ms/4hLOnaU&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 53}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 384; &#39;length&#39;: 68; &#39;url&#39;: &#39;https://nyti.ms/424GDuS&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 384; &#39;length&#39;: 68}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 656; &#39;length&#39;: 56; &#39;url&#39;: &#39;https://nyti.ms/425KEiI&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 656; &#39;length&#39;: 56}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 953; &#39;length&#39;: 8}];23424;15;None;2025-03-26 19:33:23;None;None;MessageReactions Object;[];None;None;None;None
+Message;3369;PeerChannel Object;2025-03-25 18:46:01;Here are some of the stories we are covering from around the world:\n\nWhite House Says Russia and Ukraine Agree to Stop Fighting in Black Sea\n\nThe White House said on Tuesday that Ukraine and Russia had agreed to cease fighting in the Black Sea and to hash out the details for halting strikes on energy facilities. It would be the first significant step toward the full cease-fire the Trump administration had been pushing; but it would still fall short of that goal.\n\nMob Descends on a Comedy Club After a Comic Jokes About a Politician\n\nPrime Minister Narendra Modi has said criticism is “the soul” of Indian democracy. But his allies unleashed vigilantes after a comic who called a politician a “traitor.”\n\nNow Europe Knows What Trump’s Team Calls It Behind Its Back: ‘Pathetic’\n\nTrump administration officials have demanded more European military spending and questioned the continent’s values. Leaked messages; carried out on the messaging app Signal; show the depth of the rift.\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 71; &#39;url&#39;: &#39;https://nyti.ms/4iIAT0S&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 71}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 468; &#39;length&#39;: 68; &#39;url&#39;: &#39;https://nyti.ms/4c4q9Yc&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 468; &#39;length&#39;: 68}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 709; &#39;length&#39;: 71; &#39;url&#39;: &#39;https://nyti.ms/4l34Vhs&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 709; &#39;length&#39;: 71}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 985; &#39;length&#39;: 8}];23113;15;None;2025-03-25 18:46:06;None;None;MessageReactions Object;[];None;None;None;None
+Message;3368;PeerChannel Object;2025-03-24 19:08:03;Here are some of the stories we are covering from around the world:\n\nSudan’s Military Sweeps Across Capital; Hoping to Turn the War\n\nA New York Times reporter and photographer were the first Western journalists to visit central Khartoum since the civil war broke out in Sudan two years ago. The scale of how much has been lost was inescapable.\n\nTurkey Ousts and Jails Istanbul Mayor; Who Was Expected to Run for President\n\nThe mayor of Istanbul; Ekrem Imamoglu; was jailed pending his trial on corruption charges and removed from office on Sunday; hobbling a potential contender in Turkey’s next presidential election and the top rival of President Recep Tayyip Erdogan.\n\nA War Within the War: Ukraine’s Ill Children\n\nIn three years of full-scale war; Ukrainian families of children with long-term illnesses have had to overcome countless challenges.\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 62; &#39;url&#39;: &#39;https://nyti.ms/4j2bqPP&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 62}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 345; &#39;length&#39;: 76; &#39;url&#39;: &#39;https://nyti.ms/4iK3T8r&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 345; &#39;length&#39;: 76}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 672; &#39;length&#39;: 44; &#39;url&#39;: &#39;https://nyti.ms/4l3z0NZ&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 672; &#39;length&#39;: 44}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 852; &#39;length&#39;: 8}];24213;14;None;2025-03-24 19:09:54;None;None;MessageReactions Object;[];None;None;None;None
+Message;3367;PeerChannel Object;2025-03-21 19:30:57;Here are some of the stories we are covering from around the world:\n\nWhat We Know About the Closure of Heathrow Airport\n\nHeathrow Airport in London was closed for most of Friday after it lost power because of a nearby fire; shutting down one of the world’s busiest air hubs and caused worldwide travel disruptions.\n\nRussian Energy Sites Burn as Kyiv and Moscow Trade Blame\n\nAs Ukraine and Russia prepare for talks that would place a temporary halt on strikes on energy infrastructure; each side has continued to accuse the other of fresh attacks on the power grid; underscoring the deep mistrust between them.\n\nSudan’s Military Retakes Presidential Palace in Devastated Capital\n\nTwo years into a civil war; Sudanese military forces recaptured the presidential palace in Khartoum; routing a paramilitary foe. Civilians have been trapped in the middle in a city with an apocalyptic air.\n\n@nytimes;False;False;False;False;True;False;False;True;False;False;False;False;False;None;None;None;None;None;None;None;MessageMediaPhoto Object;None;[{&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 50; &#39;url&#39;: &#39;https://nyti.ms/4kZlPxw&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 69; &#39;length&#39;: 50}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 316; &#39;length&#39;: 56; &#39;url&#39;: &#39;https://nyti.ms/4kH0kBr&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 316; &#39;length&#39;: 56}; {&#39;_&#39;: &#39;MessageEntityTextUrl&#39;; &#39;offset&#39;: 611; &#39;length&#39;: 66; &#39;url&#39;: &#39;https://nyti.ms/4iPOR0K&#39;}; {&#39;_&#39;: &#39;MessageEntityBold&#39;; &#39;offset&#39;: 611; &#39;length&#39;: 66}; {&#39;_&#39;: &#39;MessageEntityMention&#39;; &#39;offset&#39;: 886; &#39;length&#39;: 8}];30652;25;None;2025-03-21 19:31:30;None;None;MessageReactions Object;[];None;None;None;None
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./exporting"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../social_media/youtube.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">YouTube</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,764 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Telegram &#8212; Signals in the Noise</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'social_media/telegram';</script>
+    <script src="../_static/logo-switch.js?v=ee016214"></script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4chan" href="4chan.html" />
+    <link rel="prev" title="Reddit" href="reddit.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo-dark.png" class="logo__image only-light" alt="Signals in the Noise - Home"/>
+    <script>document.write(`<img src="../_static/logo-dark.png" class="logo__image only-dark" alt="Signals in the Noise - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Signals in the Noise: Python Tools for Social Media Data
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Social Media</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reddit.html">Reddit</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Telegram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4chan.html">4chan</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="youtube.html">YouTube</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exporting Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exporting/csv.html">Exporting to CSV</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Social-Media-Researcher-Toolkit/site" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Social-Media-Researcher-Toolkit/site/issues/new?title=Issue%20on%20page%20%2Fsocial_media/telegram.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/social_media/telegram.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Telegram</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-telegram">About Telegram</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-folder">Create a new folder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#telegram-credentials">Telegram Credentials</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-telethon">Installing Telethon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics">Basics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-data">Collecting Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-a-channel-object">Getting a Channel Object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-chat-messages">Collecting Chat Messages</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#search-queries">Search Queries</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#date-offset">Date offset</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-a-message-s-sender">Getting a Message’s Sender</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-participants-in-a-channel">Getting Participants in a Channel</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="telegram">
+<h1>Telegram<a class="headerlink" href="#telegram" title="Link to this heading">#</a></h1>
+<section id="about-telegram">
+<h2>About Telegram<a class="headerlink" href="#about-telegram" title="Link to this heading">#</a></h2>
+<p>Telegram is a free, cloud-based instant messaging app that offers features like sending text messages, sharing photos and videos, and creating group chats or channels. It’s known for its focus on security, including optional end-to-end encrypted secret chats and the ability to send self-destructing messages. .</p>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<p>The following steps are necessary in order to be able to create a script to get data from Telegram.</p>
+<section id="create-a-new-folder">
+<h3>Create a new folder<a class="headerlink" href="#create-a-new-folder" title="Link to this heading">#</a></h3>
+<p>This tutorial is going to use 2 files: the Python script, in a .py file, and a .env file to store credentials. Create a new folder on your computer to store these files.</p>
+<p>Once you’ve created a folder, go ahead and create 2 files: “<a class="reference external" href="http://script.py">script.py</a>” and “.env” so that your directory tree looks something like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Project</span> <span class="n">Folder</span>
+   <span class="o">|</span> <span class="n">script</span><span class="o">.</span><span class="n">py</span>
+   <span class="o">|</span> <span class="o">.</span><span class="n">env</span>
+</pre></div>
+</div>
+</section>
+<section id="telegram-credentials">
+<h3>Telegram Credentials<a class="headerlink" href="#telegram-credentials" title="Link to this heading">#</a></h3>
+<p>We’re going to need an api_id and an api_hash value from Telegram in order to access its API. These are granted to users that register an app with Telegram.</p>
+<p>First, <a class="reference external" href="https://telegram.org/sign-up">create a Telegram account</a> if you don’t already have one.</p>
+<p>Then, head over to <a class="reference external" href="https://my.telegram.org/">this link</a>. Login and press the “API development tools” button.  Grab the api_id and api_hash values and store them in your .env file to use later.</p>
+<p><img alt="TELEGRAM APP EXAMPLE" src="../_images/telegram1.png" /></p>
+<p>In <strong>.env</strong>:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">TELEGRAM_API_ID</span> <span class="o">=</span> <span class="s2">&quot;&lt;your telegram api id&gt;&quot;</span>
+<span class="n">TELEGRAM_API_HASH</span> <span class="o">=</span> <span class="s2">&quot;&lt;your telegram api hash&gt;&quot;</span>
+<span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="s2">&quot;&lt;your phone number (starting with +)&gt;&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="installing-telethon">
+<h2>Installing Telethon<a class="headerlink" href="#installing-telethon" title="Link to this heading">#</a></h2>
+<p>The library that we’re going to use to scrape messages from Telegram channels is called <a class="reference external" href="https://docs.telethon.dev/en/stable/">Telethon</a>. We’ll also use the <a class="reference external" href="https://pypi.org/project/python-dotenv/">dotenv</a> library to load credentials from the .env file.</p>
+<p>To install Telethon and dotenv, run the following commands in your terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>telethon
+pip<span class="w"> </span>install<span class="w"> </span>python-dotenv
+</pre></div>
+</div>
+<p>This installs the package so we can use it on our local machine.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When installing on your machine, use “pip” on Windows or “pip3” on MacOS - if you need more guidance, check out <a class="reference external" href="https://python.land/virtual-environments/installing-packages-with-pip">this guide</a></p>
+</div>
+</section>
+<section id="basics">
+<h2>Basics<a class="headerlink" href="#basics" title="Link to this heading">#</a></h2>
+<p>Now that we have the credentials ready and telethon installed, we can start script writing. The first step is to import the TelegramClient class from the telethon package so we can use it in our script:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#script.py</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">telethon</span><span class="w"> </span><span class="kn">import</span> <span class="n">TelegramClient</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next we need to load our .env variables that we set earlier. To do this we’ll use the dotenv library that we installed. Use the following code to set your environment variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="sd">&#39;&#39;&#39;this line parses the .env file and loads </span>
+<span class="sd">the variables into the current process to </span>
+<span class="sd">allow the os to access the variables from your </span>
+<span class="sd">.env file.&#39;&#39;&#39;</span>
+<span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="n">TELEGRAM_API_ID</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TELEGRAM_API_ID&quot;</span><span class="p">)</span>
+<span class="n">TELEGRAM_API_HASH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;TELEGRAM_API_HASH&quot;</span><span class="p">)</span>
+<span class="n">PHONE_NUMBER</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;PHONE_NUMBER&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The TelegramClient object class is how we will interface with Telegram. It takes in 3 arguments, all strings:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TelegramClient</span><span class="p">(</span><span class="o">&lt;</span><span class="n">session_name</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">telegram_api_id</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">telegram_api_hash</span><span class="o">&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first argument is the session name. The Telethon library stores each login in a session file. This session file stores login information so that the API user only has to go through the login process once. Any string works, as long as it’s consistent whenever you create a new TelegramClient object with the same Telegram account. It makes sense to use the username of the account the session will be associated with as a session name to keep things simple.</p>
+<p>The last 2 arguments should look familiar- those are the login credentials stored in the .env file.</p>
+<p>The TelegramClient object allows us to collect data using the credentials we obtained from <a class="reference external" href="https://my.telegram.org">my.telegram.org</a>. To start, we can request information about our account to verify that our credentials are working.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s2">&quot;example_session&quot;</span><span class="p">,</span> <span class="n">TELEGRAM_API_ID</span><span class="p">,</span> <span class="n">TELEGRAM_API_HASH</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="c1">#sends a request to connect</span>
+
+    <span class="c1">#if there&#39;s no session file, we need to request a verification code and login</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">is_user_authorized</span><span class="p">():</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sending code...&quot;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">send_code_request</span><span class="p">(</span><span class="n">PHONE_NUMBER</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Enter the code you received: &quot;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="n">PHONE_NUMBER</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+
+    <span class="n">me</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get_me</span><span class="p">()</span> <span class="c1">#the get_me method returns info about the logged in user</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">me</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+    <span class="n">client</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+        
+<span class="k">await</span> <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The “async” and “await” keywords are necessary. The await keyword pauses excecution until the current task is finished. The async keyword tells the script that the function will include await statements.</p>
+</div>
+<p>After inputting the login code, the script should output the username of the account that was used to log in.</p>
+</section>
+<section id="collecting-data">
+<h2>Collecting Data<a class="headerlink" href="#collecting-data" title="Link to this heading">#</a></h2>
+<p>Now that we’re logged in, we can start to collect data. We’ll use various methods of the client class in order to collect data.</p>
+<section id="getting-a-channel-object">
+<h3>Getting a Channel Object<a class="headerlink" href="#getting-a-channel-object" title="Link to this heading">#</a></h3>
+<p>To get data from a channel, we first have to obtain an object that represents the channel. To do this, we’ll use the</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">get_entity</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>method. This method allows us to get an entity (a fancy word for a User, Chat or Channel object). This method only takes 1 argument, the name, id, or link to a user, chat or channel.</p>
+<p><strong>Example:</strong> Getting the offical New York Times chat. The chat is called “nytimes”.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s2">&quot;example_session&quot;</span><span class="p">,</span> <span class="n">TELEGRAM_API_ID</span><span class="p">,</span> <span class="n">TELEGRAM_API_HASH</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="n">channel_name</span> <span class="o">=</span> <span class="s2">&quot;nytimes&quot;</span>
+    <span class="n">nytimes_channel</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get_entity</span><span class="p">(</span><span class="n">channel_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">nytimes_channel</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Try printing the nytimes_channel object instead of the nytimes_channel.title attribute. You can observe all the attributes that are available for data collection.</p>
+</div>
+</section>
+<section id="collecting-chat-messages">
+<h3>Collecting Chat Messages<a class="headerlink" href="#collecting-chat-messages" title="Link to this heading">#</a></h3>
+<p>To get the messages from a given channel, we’ll use the</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">iter_messages</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>method. This method takes the name, id or link to a channel and returns an iterable with every single message object. It also takes a limit argument, which sets the maximum amount of messages to be retrieved. (You can omit the limit argument to get all messages.)</p>
+<p><strong>Example:</strong> Getting the messages from the offical New York times chat.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s2">&quot;example_session&quot;</span><span class="p">,</span> <span class="n">TELEGRAM_API_ID</span><span class="p">,</span> <span class="n">TELEGRAM_API_HASH</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="n">channel_name</span> <span class="o">=</span> <span class="s2">&quot;nytimes&quot;</span>
+    <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">iter_messages</span><span class="p">(</span><span class="n">channel_name</span><span class="p">,</span> <span class="n">limit</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="search-queries">
+<h4>Search Queries<a class="headerlink" href="#search-queries" title="Link to this heading">#</a></h4>
+<p>You can also return messages that include a search query using the search argument.</p>
+<p><strong>Example:</strong> Getting all messages from the offical New York Times chat that include the word “ran”</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s2">&quot;example_session&quot;</span><span class="p">,</span> <span class="n">TELEGRAM_API_ID</span><span class="p">,</span> <span class="n">TELEGRAM_API_HASH</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="n">channel_name</span> <span class="o">=</span> <span class="s2">&quot;nytimes&quot;</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;ran&quot;</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">iter_messages</span><span class="p">(</span><span class="n">channel_name</span><span class="p">,</span> <span class="n">search</span><span class="o">=</span><span class="n">query</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="date-offset">
+<h4>Date offset<a class="headerlink" href="#date-offset" title="Link to this heading">#</a></h4>
+<p>You can also return messages that come before a certain date with the offset_date argument. This argument is of type datetime, which you can read about <a class="reference external" href="https://www.w3schools.com/python/python_datetime.asp">here</a>. The date given is NOT included in the returned messages.</p>
+<p><strong>Example:</strong> Getting all messages from the offical New York Times chat that include the word “Trump” from before April 2 2024.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+
+<span class="k">async</span> <span class="k">with</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s2">&quot;example_session&quot;</span><span class="p">,</span> <span class="n">TELEGRAM_API_ID</span><span class="p">,</span> <span class="n">TELEGRAM_API_HASH</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="n">channel_name</span> <span class="o">=</span> <span class="s2">&quot;nytimes&quot;</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;Trump&quot;</span>
+    <span class="n">before</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">iter_messages</span><span class="p">(</span><span class="n">channel_name</span><span class="p">,</span> <span class="n">search</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">offset_date</span><span class="o">=</span><span class="n">before</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="getting-a-message-s-sender">
+<h3>Getting a Message’s Sender<a class="headerlink" href="#getting-a-message-s-sender" title="Link to this heading">#</a></h3>
+<p>The message object contains a reference to the sender object. You can obtain information about the sender of the message with this object.</p>
+<p><strong>Example:</strong> Getting the names of the last 10 users to send messages in the “Python” telegram group (with id “Python”)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s2">&quot;example_session&quot;</span><span class="p">,</span> <span class="n">TELEGRAM_API_ID</span><span class="p">,</span> <span class="n">TELEGRAM_API_HASH</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="n">channel_id</span> <span class="o">=</span> <span class="s2">&quot;Python&quot;</span>
+    <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">iter_messages</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="n">limit</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">first_name</span> <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">first_name</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> 
+              <span class="n">message</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">last_name</span> <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">last_name</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="getting-participants-in-a-channel">
+<h3>Getting Participants in a Channel<a class="headerlink" href="#getting-participants-in-a-channel" title="Link to this heading">#</a></h3>
+<p>The following code demonstrates how to iterate over the participants of the Python telegram group.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There have been changes to the Telegram API that make this iterator obsolete. The following snippet grabs only a few random users from the Python channel, despite 100,000+ users being a part of the channel.
+It’s included in this tutorial in case a future update fixes the iterator.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">async</span> <span class="k">with</span> <span class="n">TelegramClient</span><span class="p">(</span><span class="s2">&quot;example_session&quot;</span><span class="p">,</span> <span class="n">TELEGRAM_API_ID</span><span class="p">,</span> <span class="n">TELEGRAM_API_HASH</span><span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+    <span class="n">channel_id</span> <span class="o">=</span> <span class="s2">&quot;Python&quot;</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">iter_participants</span><span class="p">(</span><span class="n">channel_id</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">first_name</span> <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">first_name</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> 
+              <span class="n">user</span><span class="o">.</span><span class="n">last_name</span> <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">last_name</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./social_media"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="reddit.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Reddit</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="4chan.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">4chan</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#about-telegram">About Telegram</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-new-folder">Create a new folder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#telegram-credentials">Telegram Credentials</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-telethon">Installing Telethon</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics">Basics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-data">Collecting Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-a-channel-object">Getting a Channel Object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collecting-chat-messages">Collecting Chat Messages</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#search-queries">Search Queries</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#date-offset">Date offset</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-a-message-s-sender">Getting a Message’s Sender</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-participants-in-a-channel">Getting Participants in a Channel</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
