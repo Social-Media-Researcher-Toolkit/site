@@ -5,10 +5,10 @@
 
 #######################################################################################
 # Book settings
-title                       : Social Media Researcher Toolkit  # The title of the book. Will be placed in the left navbar.
-author                      : Social-Media-Researcher-Toolkit  # The author of the book
+title                       : Signals in the Noise # The title of the book. Will be placed in the left navbar.
+author                      : Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil  # The author of the book
 copyright                   : "2025"  # Copyright year to be placed in the footer
-logo                        : python-logo-only.svg  # A path to the book logo
+logo                        : logo.png # A path to the book logo
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
