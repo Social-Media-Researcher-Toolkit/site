@@ -25,8 +25,8 @@ jobs:
           pip install jupyter-book ghp-import
 
       - name: Build Jupyter Book
-        run: jupyter-book build . --all --verbose
+        run: jupyter-book build ./toolkit --all --verbose
 
       - name: Deploy to GitHub Pages
         run: |
-          ghp-import -n -p -f _build/html
+          ghp-import -n -p -f ./toolkit/_build/html
