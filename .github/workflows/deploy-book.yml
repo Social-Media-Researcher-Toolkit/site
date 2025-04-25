@@ -28,6 +28,9 @@ jobs:
         run: jupyter-book build ./toolkit --all --verbose
 
       - name: Deploy to GitHub Pages
-        run: |
-          ghp-import -n -p -f toolkit/_build/html
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: toolkit/_build/html
+
 
