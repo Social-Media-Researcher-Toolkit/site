@@ -8,7 +8,7 @@ The website features the Python programming language for scholars and students w
 ***Signals in the Noise*** features codebooks for working with Telegram, YouTube, Reddit, and 4chan, with more codebooks coming! Each codebook includes step-by-step instructions to use Python to access and analyze text from these sites. This book includes interactive Python code that can be run in the book or copied and applied in your own code.   
 
 ## Acknowledgments
-Signals in the Noise was inspired by the incredible work of Dr. Melanie Walsh who published the Introduction to Cultural Analytics & Python textbook and the AI for Humanists Project. Both of these projects are important resources, and I have personally found them to be incredibly useful.
+***Signals in the Noise*** was generously funded by the J. Troutner Innovative Educators Program Award. We would also like to acknowledge the Purdue University Library and School of Information Studies as well as the work of Dr. Melanie Walsh who published the Introduction to Cultural Analytics & Python textbook and the AI for Humanists Project. Both of these projects are important resources.
 
 ## Suggested Citation
 Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil, Social Media Research Dashboard, Version 1 (2025). LINK
