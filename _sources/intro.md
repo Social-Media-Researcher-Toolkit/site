@@ -5,7 +5,7 @@ Social media has become the most important space to understand current discourse
  
 The website features the Python programming language for scholars and students working on projects that require analysis of social media and will be especially interesting to people working in digital media studies, critical internet studies, information studies, and other digital research areas.
 
-Signals in the Noise features codebooks for working with Telegram, YouTube, Reddit, and 4chan, with more codebooks coming! Each codebook includes step-by-step instructions to use Python to access and analyze text from these sites. This book includes interactive Python code that can be run in the book or copied and applied in your own code.   
+***Signals in the Noise*** features codebooks for working with Telegram, YouTube, Reddit, and 4chan, with more codebooks coming! Each codebook includes step-by-step instructions to use Python to access and analyze text from these sites. This book includes interactive Python code that can be run in the book or copied and applied in your own code.   
 
 ## Acknowledgments
 Signals in the Noise was inspired by the incredible work of Dr. Melanie Walsh who published the Introduction to Cultural Analytics & Python textbook and the AI for Humanists Project. Both of these projects are important resources, and I have personally found them to be incredibly useful.
