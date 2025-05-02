@@ -11,7 +11,7 @@ Signals in the Noise features codebooks for working with Telegram, YouTube, Redd
 Signals in the Noise was inspired by the incredible work of Dr. Melanie Walsh who published the Introduction to Cultural Analytics & Python textbook and the AI for Humanists Project. Both of these projects are important resources, and I have personally found them to be incredibly useful.
 
 ## Suggested Citation
-Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil, Social Media Research Dashboard, Version 1 (2025). LINK
+Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil, Social Media Research Dashboard, Version 1 (2025). [https://social-media-researcher-toolkit.github.io/site](https://social-media-researcher-toolkit.github.io/site)
 
 
 
