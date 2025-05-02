@@ -11,7 +11,7 @@ The website features the Python programming language for scholars and students w
 ***Signals in the Noise*** was generously funded by the J. Troutner Innovative Educators Program Award. We would also like to acknowledge the Purdue University Library and School of Information Studies as well as the work of Dr. Melanie Walsh who published the Introduction to Cultural Analytics & Python textbook and the AI for Humanists Project. Both of these projects are important resources.
 
 ## Suggested Citation
-Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil, Social Media Research Dashboard, Version 1 (2025). LINK
+Matthew N. Hannah, Simon Bosslet, Madhav Valiyaparambil, Social Media Research Dashboard, Version 1 (2025). [https://social-media-researcher-toolkit.github.io/site](https://social-media-researcher-toolkit.github.io/site)
 
 
 
