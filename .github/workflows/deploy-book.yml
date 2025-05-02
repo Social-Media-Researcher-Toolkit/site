@@ -24,6 +24,9 @@ jobs:
           pip install -r requirements.txt
           pip install jupyter-book ghp-import
 
+      - name: Clean Jupyter Book
+        run: jupyter-book clean ./toolkit
+        
       - name: Build Jupyter Book
         run: jupyter-book build ./toolkit --all --verbose
 
